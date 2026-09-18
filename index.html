@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart Made — For Indian handmade sellers who take custom orders</title>
+<meta name="description" content="Stop losing custom orders in DM chaos. A checkout link built for Indian handmade & personalised-gift sellers.">
+<meta property="og:title" content="Heart Made — For Indian handmade sellers">
+<meta property="og:description" content="Stop losing custom orders in DM chaos. A checkout link built for Indian handmade & personalised-gift sellers.">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #FAF6F1;
+    --ink: #1F1A17;
+    --muted: #6B615A;
+    --accent: #C2410C;
+    --accent-soft: #FDE9DD;
+    --card: #FFFFFF;
+    --border: #EADFD3;
+    --success: #15803D;
+    --success-soft: #DCFCE7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+  .hero { padding: 72px 0 48px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  h1 em { color: var(--accent); font-style: normal; }
+  .sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 28px;
+  }
+  .who {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .who strong { color: var(--accent); }
+
+  section { padding: 40px 0; border-top: 1px solid var(--border); }
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  /* Chaos vs Calm */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+  .col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .col h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; font-weight: 600; }
+  .col.chaos h3 { color: #B91C1C; }
+  .col.calm h3 { color: var(--success); }
+  .col ul { list-style: none; }
+  .col li {
+    padding: 8px 0;
+    font-size: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-bottom: 1px dashed var(--border);
+  }
+  .col li:last-child { border-bottom: none; }
+  .col li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-top: 4px;
+  }
+  .col.chaos li::before { background: #FEE2E2; }
+  .col.calm li::before { background: var(--success-soft); }
+
+  /* How it works */
+  .steps { display: grid; gap: 12px; }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .step .n {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    display: grid; place-items: center;
+    font-size: 18px;
+  }
+  .step h4 { font-size: 16px; margin-bottom: 4px; font-weight: 600; }
+  .step p { font-size: 14px; color: var(--muted); }
+
+  /* Preview mock */
+  .mock {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+  }
+  .mock-head {
+    display: flex; gap: 8px; align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .mock-head .dot { width: 10px; height: 10px; border-radius: 50%; background: #E5D3C1; }
+  .mock-head .url { font-size: 12px; color: var(--muted); font-family: ui-monospace, monospace; }
+  .mock h5 { font-size: 18px; margin-bottom: 4px; }
+  .mock .price { color: var(--accent); font-weight: 600; font-size: 15px; margin-bottom: 14px; }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+  .field .input {
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .btn-mock {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .caption { font-size: 12px; color: var(--muted); text-align: center; margin-top: 10px; }
+
+  /* Ask */
+  .ask {
+    background: linear-gradient(180deg, var(--accent-soft), var(--card));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+  }
+  .ask h2 { margin-bottom: 8px; }
+  .ask p { font-size: 15px; color: var(--muted); margin-bottom: 18px; }
+  .qs { display: grid; gap: 10px; }
+  .q {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  .q b { color: var(--accent); }
+
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 18px;
+  }
+  .cta:hover { opacity: 0.92; }
+  .cta.secondary {
+    background: white;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    margin-left: 8px;
+  }
+
+  footer {
+    padding: 40px 0 60px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer .made { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="badge">🇮🇳 For Indian handmade & custom-gift sellers on Instagram</span>
+    <h1>Stop losing custom orders in <em>DM chaos.</em></h1>
+    <p class="sub">A checkout link you drop in your bio — buyer picks the design, uploads their photo, pays a 50% deposit. You wake up to an order, not a 40-message DM thread.</p>
+
+    <div class="who">
+      👋 Hi, I'm <strong>Saurabh</strong>. I'm not selling this yet — I'm talking to 20 real IG sellers to figure out if this should exist. If you take custom orders through DMs, your 2-line reply below would genuinely shape what gets built.
+    </div>
+  </header>
+
+  <!-- PROBLEM -->
+  <section>
+    <h2>You already know this feeling</h2>
+    <div class="compare">
+      <div class="col chaos">
+        <h3>Today · DM chaos</h3>
+        <ul>
+          <li>60+ DMs on a launch day, buyers ghost mid-conversation</li>
+          <li>Screenshots of UPI payments that don't match any amount</li>
+          <li>"Bhaiya thoda change kar do" 3 revisions after approval</li>
+          <li>Two orders with the wrong address, courier returned</li>
+          <li>Scrolling DMs to remember what a buyer ordered last week</li>
+          <li>5–10 hours a week gone to non-converting chats</li>
+        </ul>
+      </div>
+      <div class="col calm">
+        <h3>With Heart Made</h3>
+        <ul>
+          <li>One link. Buyer picks size, colour, uploads photo, adds name</li>
+          <li>50% deposit on UPI/Razorpay before you start any work</li>
+          <li>Auto-generated proof approval — no more "final final v3"</li>
+          <li>All buyer inputs + address in one order card</li>
+          <li>Weekly view of pending, in-progress, delivered</li>
+          <li>Your DMs go back to being conversations, not order forms</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section>
+    <h2>How it would work</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div>
+        <h4>You list your product once</h4>
+        <p>Photo, base price, personalisation fields (name, photo upload, colour, message). Takes ~5 minutes per product.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Drop the link in your IG bio &amp; stories</h4>
+        <p>When a buyer DMs "how much?", you reply with the link. They fill everything themselves.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Buyer pays 50% deposit upfront</h4>
+        <p>UPI, cards, Razorpay. No deposit, no order — the flakiness filters itself out.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>You get one clean order card</h4>
+        <p>All details, photos, address, deposit received. Make it, upload proof, get one-click approval, ship, collect balance.</p>
+      </div></div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-head">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url">heartmade.in/kesh/custom-resin-frame</span>
+      </div>
+      <h5>Custom Resin Photo Frame</h5>
+      <div class="price">₹899 · 50% deposit ₹450</div>
+      <div class="field"><label>Upload your photo</label><div class="input">📷 Tap to upload (JPG/PNG)</div></div>
+      <div class="field"><label>Name or message on frame</label><div class="input">e.g. "Riya &amp; Arjun · 14.02.2024"</div></div>
+      <div class="field"><label>Colour theme</label><div class="input">Rose gold · Ocean blue · Nude</div></div>
+      <div class="field"><label>Delivery pincode</label><div class="input">400001</div></div>
+      <button class="btn-mock">Pay ₹450 deposit →</button>
+      <p class="caption">Rough mockup — not a real product yet</p>
+    </div>
+  </section>
+
+  <!-- ASK -->
+  <section>
+    <div class="ask">
+      <h2>The real reason I sent this</h2>
+      <p>Before I build one line of code, I want to hear from <b>you</b> — someone actually running custom orders through DMs. Even a 2-line reply on Instagram is huge. If you have 60 seconds:</p>
+      <div class="qs">
+        <div class="q"><b>1.</b> What's the <b>most annoying</b> part of the DM back-and-forth for you?</div>
+        <div class="q"><b>2.</b> Roughly what <b>% of custom-order DMs</b> actually turn into a paid order?</div>
+        <div class="q"><b>3.</b> Have you ever tried a Google Form / Shopify / Etsy / Ko-fi for this — what stopped you?</div>
+        <div class="q"><b>4.</b> Would you actually share a link like this with your next buyer, or would you rather keep it in DMs? (be honest — a "no" helps me most)</div>
+      </div>
+      <a href="https://instagram.com/stillfathom" class="cta">Reply on Instagram</a>
+      <a href="mailto:saurabhsinghup123@gmail.com?subject=Heart%20Made%20-%20seller%20feedback" class="cta secondary">Email me instead</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="made">Made with 🧡 by <a href="https://instagram.com/stillfathom">@stillfathom</a></div>
+    <div>Zoho Architect · Automation Consultant · <a href="https://linkedin.com/in/saurabh-singh-76a931284">LinkedIn</a></div>
+    <div style="margin-top: 8px; opacity: 0.7;">This is a validation page, not a product. Nothing to buy. Just listening.</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
