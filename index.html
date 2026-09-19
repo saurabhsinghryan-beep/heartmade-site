@@ -173,24 +173,40 @@
   }
   .caption { font-size: 12px; color: var(--muted); text-align: center; margin-top: 10px; }
 
-  /* Ask */
-  .ask {
+  /* Form */
+  .form-box {
     background: linear-gradient(180deg, var(--accent-soft), var(--card));
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 28px 24px;
   }
-  .ask h2 { margin-bottom: 8px; }
-  .ask p { font-size: 15px; color: var(--muted); margin-bottom: 18px; }
-  .qs { display: grid; gap: 10px; }
-  .q {
-    background: var(--card);
+  .form-box h2 { margin-bottom: 8px; }
+  .form-box > p { font-size: 15px; color: var(--muted); margin-bottom: 18px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px 12px;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
+    border-radius: 8px;
     font-size: 14px;
+    font-family: inherit;
+    background: var(--card);
   }
-  .q b { color: var(--accent); }
+  .form-group textarea { min-height: 90px; resize: vertical; }
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .btn-submit:hover { opacity: 0.92; }
+  .form-note { font-size: 12px; color: var(--muted); margin-top: 10px; text-align: center; }
 
   .cta {
     display: inline-block;
@@ -204,12 +220,6 @@
     margin-top: 18px;
   }
   .cta:hover { opacity: 0.92; }
-  .cta.secondary {
-    background: white;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    margin-left: 8px;
-  }
 
   footer {
     padding: 40px 0 60px;
@@ -233,7 +243,7 @@
     <p class="sub">A checkout link you drop in your bio — buyer picks the design, uploads their photo, pays a 50% deposit. You wake up to an order, not a 40-message DM thread.</p>
 
     <div class="who">
-      👋 Hi, I'm <strong>Saurabh</strong>. I'm not selling this yet — I'm talking to 20 real IG sellers to figure out if this should exist. If you take custom orders through DMs, your 2-line reply below would genuinely shape what gets built.
+      👋 Hi, I'm <strong>Saurabh</strong>. I'm not selling this yet — I'm talking to 20 real IG sellers to figure out if this should exist. If you take custom orders through DMs, your answers below would genuinely shape what gets built.
     </div>
   </header>
 
@@ -304,19 +314,54 @@
     </div>
   </section>
 
-  <!-- ASK -->
+  <!-- FORM -->
   <section>
-    <div class="ask">
-      <h2>The real reason I sent this</h2>
-      <p>Before I build one line of code, I want to hear from <b>you</b> — someone actually running custom orders through DMs. Even a 2-line reply on Instagram is huge. If you have 60 seconds:</p>
-      <div class="qs">
-        <div class="q"><b>1.</b> What's the <b>most annoying</b> part of the DM back-and-forth for you?</div>
-        <div class="q"><b>2.</b> Roughly what <b>% of custom-order DMs</b> actually turn into a paid order?</div>
-        <div class="q"><b>3.</b> Have you ever tried a Google Form / Shopify / Etsy / Ko-fi for this — what stopped you?</div>
-        <div class="q"><b>4.</b> Would you actually share a link like this with your next buyer, or would you rather keep it in DMs? (be honest — a "no" helps me most)</div>
-      </div>
-      <a href="https://instagram.com/stillfathom" class="cta">Reply on Instagram</a>
-      <a href="mailto:saurabhsinghup123@gmail.com?subject=Heart%20Made%20-%20seller%20feedback" class="cta secondary">Email me instead</a>
+    <div class="form-box">
+      <h2>Help shape this — 60 seconds</h2>
+      <p>I'm reaching out to 20 sellers before I build anything. Your honest answers (even "this won't work") are the most valuable thing right now.</p>
+
+      <form id="feedbackForm" action="https://formspree.io/f/xgveqdep" method="POST">
+        <div class="form-group">
+          <label for="handle">Your Instagram handle</label>
+          <input type="text" id="handle" name="instagram_handle" placeholder="@yourhandle" required>
+        </div>
+
+        <div class="form-group">
+          <label for="q1">1. What's the MOST annoying part of the DM back-and-forth for you?</label>
+          <textarea id="q1" name="annoying_part" placeholder="e.g. buyers ghosting, revision requests after approval, payment confusion..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="q2">2. Roughly what % of custom-order DMs turn into paid orders?</label>
+          <select id="q2" name="conversion_rate" required>
+            <option value="">— Select —</option>
+            <option value="under_10">Under 10%</option>
+            <option value="10_25">10-25%</option>
+            <option value="25_50">25-50%</option>
+            <option value="50_75">50-75%</option>
+            <option value="over_75">Over 75%</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="q3">3. Have you tried Google Forms / Shopify / Etsy / Ko-fi for this? What stopped you?</label>
+          <textarea id="q3" name="tried_before" placeholder="e.g. tried Google Forms but buyers don't fill it, tried Etsy but fees too high..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="q4">4. Would you actually share a link like this with your next buyer? (be honest — a 'no' helps me most)</label>
+          <select id="q4" name="would_use" required>
+            <option value="">— Select —</option>
+            <option value="yes_immediately">Yes, would try it right away</option>
+            <option value="yes_hesitant">Yes, but hesitant / need to see it first</option>
+            <option value="no_prefer_dms">No, I prefer keeping it in DMs</option>
+            <option value="no_buyers_wont">No, my buyers won't click external links</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Send feedback</button>
+        <p class="form-note">Your email/number won't be shared. I'll DM you on Instagram if I have follow-up Qs.</p>
+      </form>
     </div>
   </section>
 
@@ -327,6 +372,14 @@
   </footer>
 
 </div>
+
+<script>
+  document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+  });
+</script>
 
 </body>
 </html>
